@@ -1,2 +1,2 @@
 # Mini-Project-2
-Mini Project 2, webcomic app
+Cosmic Strip: A webcomic app
