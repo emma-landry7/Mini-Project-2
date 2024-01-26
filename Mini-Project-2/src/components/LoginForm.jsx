@@ -1,20 +1,13 @@
 import { useState } from "react";
+import { useUserContext } from "../context/UserContext";
+import HomePage from "../pages/HomePage";
 
 function LoginForm() {
     const [userEmail, setUserEmail] = useState('')
     const [userPassword, setUserPassword] = useState('')
     const [submitResult, setSubmitResult] = useState('')
 
-    const handleUpdateEmail = (e) => {
-        console.log('handleUpdateEmail', e.target.value)
-
-        if (e.target.value.includes('@')) {
-            console.log('Validate true')
-        } else {
-            console.log('Validate false')
-        }
-        setUserEmail(e.target.value)
-    }
+    const {currentUser, handleUpdateUser} = useUserContext()
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -24,16 +17,24 @@ function LoginForm() {
             setSubmitResult('Password must not match email address')
         } else {
             setSubmitResult('Successful login.')
+            handleUpdateUser({email: userEmail})
         }
     }
 
+    if (currentUser.email) return (
+        <div>
+            <HomePage />
+        </div>
+    )
+
     return (
         <div>
+            <h1>Cosmic Strip</h1>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label>Username:
+                    <label>Email:
                         <input type="email" value={userEmail} name="userEmail"
-                            onChange={(e) => handleUpdateEmail(e)} />
+                            onChange={(e) => setUserEmail(e.target.value)} />
                     </label>
                 </div>
                 <div>
