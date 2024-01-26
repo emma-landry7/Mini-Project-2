@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../context/UserContext";
 import HomePage from "../pages/HomePage";
 
 function LoginForm() {
+    const navigate = useNavigate()
     const [userEmail, setUserEmail] = useState('')
     const [userPassword, setUserPassword] = useState('')
     const [submitResult, setSubmitResult] = useState('')
@@ -16,7 +18,7 @@ function LoginForm() {
         } else if (userPassword === userEmail) {
             setSubmitResult('Password must not match email address')
         } else {
-            setSubmitResult('Successful login.')
+            // setSubmitResult('Successful login.')
             handleUpdateUser({email: userEmail})
         }
     }
@@ -43,7 +45,7 @@ function LoginForm() {
                             onChange={(e) => setUserPassword(e.target.value)} />
                     </label>
                 </div> 
-                <button>Log in</button>
+                <button className="margin" onClick={()=>navigate(-1)}>Back</button><button className="margin">Log in</button>
                 <p>{submitResult}</p>
             </form>
         </div>
